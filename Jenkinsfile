@@ -26,6 +26,7 @@ pipeline {
                 expression {
                     params.action == 'Apply'
                 }
+            }
             steps {
                 sh """
                     cd 01-vpc
