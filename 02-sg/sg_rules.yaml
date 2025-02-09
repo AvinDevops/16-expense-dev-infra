@@ -1,0 +1,84 @@
+- name: SG rules
+  sg:
+  - expense-dev-db
+  - expense-dev-backend
+  - expense-app-alb
+  - expense-dev-frontend
+  - expense-web-alb
+  - expense-dev-bastion
+  - expense-dev-vpn
+  db:
+  - name: db_backend
+    desc: db accepting connection from backend
+    source: backend
+    port: 3306
+  - name: db_bastion
+    desc: db accepting connection from bastion
+    source: bastion
+    port: 3306
+  - name: db_vpn
+    desc: db accepting connection from vpn
+    source: vpn
+    port: 3306
+  backend:
+  - name: backend_bastion
+    desc: backend accepting connection from bastion
+    source: bastion
+    port: 22
+  - name: backend_vpn_ssh
+    desc: backend accepting connection from vpn_ssh
+    source: vpn_ssh
+    port: 22
+  - name: backend_vpn_http
+    desc: backend accepting connection from vpn_http
+    source: vpn_http
+    port: 8080
+  - name: backend_app-alb
+    desc: backend accepting connection from app-alb
+    source: app-alb
+    port: 8080
+  app-alb:
+  - name: app-alb_vpn
+    desc: app_alb accepting connection from vpn
+    source: vpn
+    port: 80
+  - name: app-alb_frontend
+    desc: app_alb accepting connection from frontend instances
+    source: frontend
+    port: 80
+  - name: app-alb_bastion
+    desc: app_alb accepting connection from bastion instances
+    source: bastion
+    port: 80
+  frontend:
+  - name: frontend_web-alb
+    desc: frontend accepting connection from web-alb
+    source: web-alb
+    port: 80
+  - name: frontend_bastion
+    desc: frontend accepting connection from bastion
+    source: bastion
+    port: 22
+  - name: frontend_vpn
+    desc: frontend accepting connection from vpn
+    source: vpn
+    port: 22
+  web-alb:
+  - name: web-alb_public
+    desc: web-alb accepting connection from public
+    source: public
+    port: 80
+  - name: web-alb_public_https
+    desc: web-alb accepting connection from public https
+    source: public_https
+    port: 443
+  bastion:
+  - name: bastion_public
+    desc: bastion accepting connection from public
+    source: public
+    port: 22
+  vpn:
+  - name: vpn_public
+    desc: vpn accepting connection from public
+    source: public
+    port: 943, 443, 22, 1194
