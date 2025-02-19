@@ -257,12 +257,12 @@ resource "aws_security_group_rule" "bastion_public" {
 
 ### tools ###
 ## backend accepting connection from default_vpc ##
-resource "aws_security_group_rule" "backend_default_vpc" {
+resource "aws_security_group_rule" "backend_default_subnet" {
     type = "ingress"
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["172.31.0.0/16"]
+    cidr_blocks = ["172.31.16.0/20"]
     security_group_id = module.backend.sg_id 
 }
 
